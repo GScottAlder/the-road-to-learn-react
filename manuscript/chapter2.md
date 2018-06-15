@@ -1,10 +1,10 @@
 # Basics in React
 
-The chapter will guide you through the basics of React. It covers state and interactions in components, because static components are a bit dull, aren't they? Additionally, you will learn about the different ways to declare a component and how to keep components composable and reusable. Be prepared to breathe life into your components.
+The chapter will guide you through the basics of React. It covers states and interactions in dynamic components, which are more interesting than static components. Additionally, you will learn about the different ways to declare a component and how to keep components composable and reusable. Be prepared to breathe life into your components.
 
 ## Internal Component State
 
-Internal component state, also known as local state, allows you to save, modify and delete properties that are stored in your component. The ES6 class component can use a constructor to initialize internal component state later on. The constructor is called only once when the component initializes.
+A component"s internal state, also known as its local state, allows you to save, modify, and delete the properties of your component. The ES6 class component can use a constructor to initialize an internal component state later on. The constructor is called once the component is initialized.
 
 Let's introduce a class constructor.
 
@@ -25,7 +25,7 @@ class App extends Component {
 
 The App component is a subclass of `Component`: hence the `extends Component` in your App component declaration. You will learn more about ES6 class components later on.
 
-It is mandatory to call `super(props);`: it sets `this.props` in your constructor in case you want to access them in the constructor. Otherwise, when accessing `this.props` in your constructor, they would be `undefined`. You will learn more about the props of a React component later on.
+It is mandatory to call `super(props);` to set `this.props` in your constructor so that you can access its properties. Otherwise, `this.props` is `undefined` in your constructor. You will learn more about the properties of a React component later on.
 
 Now, in your case, the initial state in your component should be the sample list of items.
 
@@ -60,7 +60,7 @@ class App extends Component {
 }
 ~~~~~~~~
 
-The state is bound to the class by using the `this` object. Thus you can access the local state in your whole component. For instance, it can be used in the `render()` method. Previously you have mapped a static list of items in your `render()` method that was defined outside of your component. Now you are about to use the list from your local state in your component.
+The state is bound to the class by using the `this` object, which allows you to access the local state in your component. For instance, it can be used in the `render()` method. Previously, you mapped a static list of items that was defined outside of your component with the `render()` method. Now, you will use this list from the local state in your component.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -89,14 +89,14 @@ class App extends Component {
 }
 ~~~~~~~~
 
-The list is part of the component now. It resides in the internal component state. You could add items, change items or remove items in and from your list. Every time you change your component state, the `render()` method of your component will run again. That's how you can simply change your internal component state and be sure that the component re-renders and displays the correct data that comes from the local state.
+The list resides in the internal state of the component now. You can add, change, or remove items in and from your list. Every time you change your component state, the `render()` method of your component will run again. That's how you can simply change your internal component state and be sure that the component re-renders and displays the correct data from the local state.
 
-But be careful. Don't mutate the state directly. You have to use a method called `setState()` to modify your state. You will get to know it in a following chapter.
+But be careful not to mutate the state directly. You have to use a method called `setState()` to modify your state. You will get to know it in a following chapter.
 
 ### Exercises:
 
 * experiment with the local state
-  * define more initial state in the constructor
+  * define more initial states in the constructor
   * use and access the state in your `render()` method
 * read more about [the ES6 class constructor](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes#Constructor)
 
@@ -124,7 +124,7 @@ const user = {
 };
 ~~~~~~~~
 
-In your application, you can do the same. The list variable name and the state property name share the same name.
+In your application, you can do the same. The list variable and state property share the same name.
 
 {title="Code Playground",lang="javascript"}
 ~~~~~~~~
@@ -139,7 +139,7 @@ this.state = {
 };
 ~~~~~~~~
 
-Another neat helper are shorthand method names. In JavaScript ES6, you can initialize methods in an object more concisely.
+In JavaScript ES6, shorthand method names are also helpful for initializing methods in an object more concisely.
 
 {title="Code Playground",lang="javascript"}
 ~~~~~~~~
@@ -174,7 +174,7 @@ const user = {
 };
 ~~~~~~~~
 
-Perhaps computed property names make no sense for you yet. Why should you need them? In a later chapter, you will come to a point where you can use them to allocate values by key in a dynamic way in an object. It's neat to generate lookup tables in JavaScript.
+Computed property names may not make sense for you yet. In a later chapter, you will use them to dynamically allocate values by key in an object; this lets you generate neat lookup tables in JavaScript.
 
 ### Exercises:
 
@@ -183,9 +183,9 @@ Perhaps computed property names make no sense for you yet. Why should you need t
 
 ## Unidirectional Data Flow
 
-Now you have some internal state in your App component. However, you have not manipulated the local state yet. The state is static and thus is the component. A good way to experience state manipulation is to have some component interaction.
+Now that you have an internal state in your App component, you can start manipulating it. Currently, the state is static and thus is simply the component. A good way to experience state manipulation is to have some component interaction.
 
-Let's add a button for each item in the displayed list. The button says "Dismiss" and is going to remove the item from the list. It could be useful eventually when you only want to keep a list of unread items and dismiss the items that you are not interested in.
+Let's add a button for each item in the displayed list. The button will say "Dismiss" and will remove the corresponding item from the list. It could be useful in case you only want to keep a list of unread items, or to dismiss items that you are not interested in.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -222,11 +222,11 @@ class App extends Component {
 }
 ~~~~~~~~
 
-The `onDismiss()` class method is not defined yet. We will do it in a moment, but for now the focus should be on the `onClick` handler of the button element. As you can see, the `onDismiss()` method in the `onClick` handler is enclosed by another function. It is an arrow function. That way, you can sneak in the `objectID` property of the `item` object to identify the item that will be dismissed. An alternative way would be to define the function outside of the `onClick` handler and only pass the defined function to the handler. A later chapter will explain the topic of handlers in elements in more detail.
+The `onDismiss()` class method is not defined yet. We will define it in a moment, but for now focus on the `onClick` handler of the button element. The `onDismiss()` method in the `onClick` handler is enclosed by another function, which is an arrow function. This way, you can sneak in the `objectID` property of the `item` object to identify the item that will be dismissed. An alternative way would be to define the function outside of the `onClick` handler and only pass the defined function to the handler. A later chapter will explain the topic of handlers in elements more thoroughly.
 
-Did you notice the multilines for the button element? Note that elements with multiple attributes get messy as one line at some point. That's why the button element is used with multilines and indentations to keep it readable. But it is not mandatory. It is only a code style recommendation that I highly recommend.
+Did you notice the multilines used for the button element? Elements with multiple attributes can get messy if all the code is kept on one line, so don't be afraid to use multilines and indentations to keep it readable. This style isn't mandatory, but I highly recommend it.
 
-Now you have to implement the `onDismiss()` functionality. It takes an id to identify the item to dismiss. The function is bound to the class and thus becomes a class method. That's why you access it with `this.onDismiss()` and not `onDismiss()`. The `this` object is your class instance. In order to define the `onDismiss()` as class method, you have to bind it in the constructor. Bindings will be explained in another chapter later on.
+Now you have to implement `onDismiss()` as a class method. It should be a function which takes an id as an argument to identify the item to dismiss. Since the `this` object is an instance of the class, its method is accessed with `this.onDismiss()` and not `onDismiss()`. In order to define the `onDismiss()` as a class method, you have to bind it in the constructor. Bindings will be explained in another chapter later on.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -250,7 +250,7 @@ class App extends Component {
 }
 ~~~~~~~~
 
-In the next step, you have to define its functionality, the business logic, in your class. Class methods can be defined the following way.
+In the next step, you will define the functionality of the `onDismiss()` method's business logic in your class. Class methods can be defined in the following way.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -278,9 +278,9 @@ class App extends Component {
 }
 ~~~~~~~~
 
-Now you are able to define what happens inside of the class method. Basically you want to remove the item identified by the id from the list and store an updated list to your local state. Afterward, the updated list will be used in the re-running `render()` method to display it. The removed item shouldn't appear anymore.
+Now you are able to define what happens inside of the class method. You want to remove the item identified by the id from the list and store the updated list to your local state. Afterward, the updated list will be used in the re-running `render()` method to display it without the removed item.
 
-You can remove an item from a list by using the JavaScript built-in filter functionality. The filter function takes a function as input. The function has access to each value in the list, because it iterates over the list. That way, you can evaluate each item in the list based on a filter condition. If the evaluation for an item is true, the item stays in the list. Otherwise it will be filtered from the list. Additionally, it is good to know that the function returns a new list and doesn't mutate the old list. It supports the convention in React of having immutable data structures.
+You can remove an item from a list by using the JavaScript built-in filter function, which takes a user-defined function as an argument. The user-defined function argument must have access to the list so that it can iterate over each value. This way, it can evaluate each item in the list based on a filter condition. If the evaluation for an item is true, the item stays in the list. Otherwise it will be filtered and removed from the list. Additionally, the function must return the new, updated list rather than mutating the old list. This supports the React convention of immutable data structures.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -293,7 +293,7 @@ onDismiss(id) {
 }
 ~~~~~~~~
 
-In the next step, you can extract the function and pass it to the filter function.
+In the next step, you can define the function and pass it to the filter function.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -308,7 +308,7 @@ onDismiss(id) {
 }
 ~~~~~~~~
 
-In addition, you can do it more concisely by using a JavaScript ES6 arrow function again.
+In addition, you can do it more concisely by using a JavaScript ES6 arrow function.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -320,7 +320,7 @@ onDismiss(id) {
 }
 ~~~~~~~~
 
-You could even inline it again, like you did in the `onClick` handler of the button, but it might get less readable.
+You could even inline the function, like you did in the `onClick` handler of the button, but it might become less readable.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -331,7 +331,7 @@ onDismiss(id) {
 }
 ~~~~~~~~
 
-The list removes the clicked item now. However the state isn't updated yet. Therefore you can finally use the `setState()` class method to update the list in the internal component state.
+The list will remove the clicked item now; however the state isn't updated yet. You can now use the `setState()` class method to update the list in the internal component state.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -344,7 +344,7 @@ onDismiss(id) {
 }
 ~~~~~~~~
 
-Now run again your application and try the "Dismiss" button. It should work. What you experience now is the **unidirectional data flow** in React. You trigger an action in your view with `onClick()`, a function or class method modifies the internal component state and the `render()` method of the component runs again to update the view.
+Now run your application again and try the "Dismiss" button. What occurs now is called **unidirectional data flow** in React. When you trigger an action in your view with `onClick()`, a function or class method modifies the internal component state, and the `render()` method of the component runs again to update the view.
 
 ### Exercises:
 
@@ -352,7 +352,7 @@ Now run again your application and try the "Dismiss" button. It should work. Wha
 
 ## Bindings
 
-It is important to learn about bindings in JavaScript classes when using React ES6 class components. In the previous chapter, you have bound your class method `onDismiss()` in the constructor.
+It is important to learn about bindings in JavaScript classes when using React ES6 class components. In the previous chapter, you bound your class method `onDismiss()` in the constructor.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -371,7 +371,7 @@ class App extends Component {
 }
 ~~~~~~~~
 
-Why would you do that in the first place? The binding step is necessary, because class methods don't automatically bind `this` to the class instance. Let's demonstrate it with the help of the following ES6 class component.
+The binding step is necessary because class methods don't automatically bind `this` to the class instance. Let's demonstrate this with the help of the following ES6 class component.
 
 {title="Code Playground",lang=javascript}
 ~~~~~~~~
@@ -393,9 +393,9 @@ class ExplainBindingsComponent extends Component {
 }
 ~~~~~~~~
 
-The component renders just fine, but when you click the button, you will get `undefined` in your developer console log. That's a main source of bugs when using React, because if you want to access `this.state` in your class method, it cannot be retrieved because `this` is `undefined`. So in order to make `this` accessible in your class methods, you have to bind the class methods to `this`.
+The component renders just fine, but when you click the button you will get `undefined` in your developer console log. This is a significant source of bugs when using React. If you try to access `this.state` in your class method, it cannot be retrieved because `this` is `undefined`. So in order to make `this` accessible in your class methods, you have to bind the class methods to `this`.
 
-In the following class component the class method is properly bound in the class constructor.
+In the following class component, the class method is properly bound in the class constructor.
 
 {title="Code Playground",lang=javascript}
 ~~~~~~~~
@@ -425,7 +425,7 @@ class ExplainBindingsComponent extends Component {
 }
 ~~~~~~~~
 
-When trying the button again, the `this` object, to be more specific the class instance, should be defined and you would be able to access `this.state`, or as you will later learn `this.props`, now.
+When trying the button again, the `this` object, which is a class instance, should be defined and `this.state` is accessible.
 
 The class method binding can happen somewhere else too. For instance, it can happen in the `render()` class method.
 
@@ -451,9 +451,9 @@ class ExplainBindingsComponent extends Component {
 }
 ~~~~~~~~
 
-But you should avoid it, because it would bind the class method every time when the `render()` method runs. Basically it runs every time your component updates which leads to performance implications. When binding the class method in the constructor, you bind it only once in the beginning when the component is instantiated. That's a better approach to do it.
+You should avoid this, however, because it binds the class method every time the `render()` method runs, which happens every time your component updates and leads to performance issues. When binding the class method in the constructor, you should only bind it once when the component is instantiated.
 
-Another thing people sometimes come up with is defining the business logic of their class methods in the constructor.
+Another bad idea is defining the business logic of class methods in the constructor.
 
 {title="Code Playground",lang=javascript}
 ~~~~~~~~
@@ -481,7 +481,7 @@ class ExplainBindingsComponent extends Component {
 }
 ~~~~~~~~
 
-You should avoid it too, because it will clutter your constructor over time. The constructor is only there to instantiate your class with all its properties. That's why the business logic of class methods should be defined outside of the constructor.
+You should avoid this too, because it will clutter your constructor over time. The constructor is only there to instantiate your class with all its properties. The business logic of class methods should be defined outside of the constructor.
 
 {title="Code Playground",lang=javascript}
 ~~~~~~~~
@@ -505,7 +505,7 @@ class ExplainBindingsComponent extends Component {
 }
 ~~~~~~~~
 
-Last but not least, it is worth to mention that class methods can be auto-bound automatically without binding them explicitly by using JavaScript ES6 arrow functions.
+Last but not least, it is worth mentioning that class methods can be auto-bound automatically rather than explicitly by using JavaScript ES6 arrow functions.
 
 {title="Code Playground",lang=javascript}
 ~~~~~~~~
@@ -527,7 +527,7 @@ class ExplainBindingsComponent extends Component {
 }
 ~~~~~~~~
 
-If the repetitive binding in the constructor annoys you, you can go ahead with this approach instead. The official React documentation sticks to the class method bindings in the constructor. That's why the book will stick to those as well.
+If the repetitive binding in the constructor annoys you, you can go ahead with this approach instead. The official React documentation sticks to the class method bindings in the constructor, and this book will stick to those as well.
 
 ### Exercises:
 
@@ -535,7 +535,7 @@ If the repetitive binding in the constructor annoys you, you can go ahead with t
 
 ## Event Handler
 
-The chapter should give you a deeper understanding of event handlers in elements. In your application, you are using the following button element to dismiss an item from the list.
+Let's dive deeper into event handlers in elements. In your application, you are using the following button element to dismiss an item from the list.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -551,7 +551,7 @@ The chapter should give you a deeper understanding of event handlers in elements
 ...
 ~~~~~~~~
 
-That's already a complex use case, because you have to pass a value to the class method and thus you have to wrap it into another (arrow) function. So basically, it has to be a function that is passed to the event handler. The following code wouldn't work, because the class method would be executed immediately when you open the application in the browser.
+This is already a complex use case, because you have to pass a value to the class method and thus you have to wrap it into another (arrow) function. So, it has to be a function that is passed to the event handler. The following code wouldn't work, because the class method would be executed immediately when you open the application in the browser.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -567,9 +567,9 @@ That's already a complex use case, because you have to pass a value to the class
 ...
 ~~~~~~~~
 
-When using `onClick={doSomething()}`, the `doSomething()` function would execute immediately when you open the application in your browser. The expression in the handler is evaluated. Since the returned value of the function isn't a function anymore, nothing would happen when you click the button. But when using `onClick={doSomething}` whereas `doSomething` is a function, it would be executed when clicking the button. The same rules apply for the `onDismiss()` class method that is used in your application.
+When using `onClick={doSomething()}`, the `doSomething()` function executes immediately when you open the application in your browser, and the expression in the handler is evaluated. Since the returned value of the function isn't a function anymore, nothing happens when you click the button. But when using `onClick={doSomething}`, where `doSomething` is a function, clicking the button executes properly. The same rules apply for the `onDismiss()` class method that is used in your application.
 
-However, using `onClick={this.onDismiss}` wouldn't suffice, because somehow the `item.objectID` property needs to be passed to the class method to identify the item that is going to be dismissed. That's why it can be wrapped into another function to sneak in the property. The concept is called higher-order functions in JavaScript and will be explained briefly later on.
+However, using `onClick={this.onDismiss}` wouldn't suffice, because the `item.objectID` property needs to be passed to the class method to identify the item that is going to be dismissed. That's why it can be wrapped into another function to sneak in the property. This concept is called higher-order functions in JavaScript and will be explained briefly later on.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -585,7 +585,7 @@ However, using `onClick={this.onDismiss}` wouldn't suffice, because somehow the 
 ...
 ~~~~~~~~
 
-A workaround would be to define the wrapping function somewhere outside and only pass the defined function to the handler. Since it needs access to the individual item, it has to live in the inside of the map function block.
+A workaround would be to define the wrapping function somewhere outside and only pass the defined function to the handler. Since it would need access to the individual item, it would have to live in the inside of the map function block.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -661,7 +661,7 @@ class App extends Component {
 }
 ~~~~~~~~
 
-It will run when you open the application in the browser but not when you click the button. Whereas the following code would only run when you click the button. It is a function that is executed when you trigger the handler.
+This will run when you open the application in the browser but not when you click the button. Whereas the following code will only run when you click the button, which triggers the handler to execute the function.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -681,7 +681,7 @@ It will run when you open the application in the browser but not when you click 
 ...
 ~~~~~~~~
 
-In order to keep it concise, you can transform it into a JavaScript ES6 arrow function again. That's what we did with the `onDismiss()` class method too.
+To be concise, you can transform the function into a JavaScript ES6 arrow function again. That's what we did with the `onDismiss()` class method too.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -699,7 +699,7 @@ In order to keep it concise, you can transform it into a JavaScript ES6 arrow fu
 ...
 ~~~~~~~~
 
-Often newcomers to React have difficulties with the topic of using functions in event handlers. That's why I tried to explain it in more detail here. In the end, you should end up with the following code in your button to have a concisely inlined JavaScript ES6 arrow function that has access to the `objectID` property of the `item` object.
+Newcomers to React often have difficulty using functions in event handlers. That's why I tried to explain it in more detail here. You should end up with the following code in your button to have a concisely inlined JavaScript ES6 arrow function that has access to the `objectID` property of the `item` object.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -730,7 +730,7 @@ class App extends Component {
 }
 ~~~~~~~~
 
-Another performance relevant topic, that is often mentioned, are the implications of using arrow functions in event handlers. For instance, the `onClick` handler for the `onDismiss()` method is wrapping the method in another arrow function to be able to pass the item identifier. So every time the `render()` method runs, the handler instantiates the higher-order arrow function. It *can* have an impact on your application performance, but in most cases you will not notice it. Imagine you have a huge table of data with 1000 items and each row or column has such an arrow function in an event handler. Then it is worth thinking about the performance implications and therefore you could implement a dedicated Button component to bind the method in the constructor. But before that happens it is premature optimization. It is more valuable to focus on learning React itself.
+Another important topic on performance is the implication of using arrow functions in event handlers. For instance, the `onClick` handler for the `onDismiss()` method wraps the method in another arrow function to be able to pass the item identifier. So every time the `render()` method runs, the handler instantiates the higher-order arrow function. It *can* have an impact on your application performance, but in most cases you will not notice it. Imagine you have a huge table of data with 1000 items and each row or column has such an arrow function in an event handler. Then it is worth thinking about the performance implications and possibly implementing a dedicated Button component to bind the method in the constructor. For smaller applications, this is a premature optimization, and it is more important to focus on learning React for now.
 
 ### Exercises:
 
@@ -738,9 +738,9 @@ Another performance relevant topic, that is often mentioned, are the implication
 
 ## Interactions with Forms and Events
 
-Let's add another interaction for the application to experience forms and events in React. The interaction is a search functionality. The input of the search field should be used to temporarily filter your list based on the title property of an item.
+Let's add a search function interaction so the application can experience forms and events. The input of the search field should be used to temporarily filter your list based on the title property of an item.
 
-In the first step, you are going to define a form with an input field in your JSX.
+First, define a form with an input field in your JSX.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -765,9 +765,9 @@ class App extends Component {
 }
 ~~~~~~~~
 
-In the following scenario you will type into the input field and filter the list temporarily by the search term that is used in the input field. To be able to filter the list based on the value of the input field, you need to store the value of the input field in your local state. But how do you access the value? You can use **synthetic events** in React to access the event payload.
+In the following scenario, type a search term into the input field to filter the list temporarily. To filter the list based on the value of the input field, you need to store the value of the input field in your local state. But how do you access the value? You can use **synthetic events** in React to access the event payload.
 
-Let's define a `onChange` handler for the input field.
+Let's define an `onChange` handler for the input field.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -793,7 +793,7 @@ class App extends Component {
 }
 ~~~~~~~~
 
-The function is bound to the component and thus a class method again. You have to bind and define the method.
+The function is bound to the component and is thus another class method, which must be bound and defined.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -822,7 +822,7 @@ class App extends Component {
 }
 ~~~~~~~~
 
-When using a handler in your element, you get access to the synthetic React event in your callback function's signature.
+When using a handler in your element, you can access the synthetic React event in your callback function's signature.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -882,11 +882,11 @@ class App extends Component {
 }
 ~~~~~~~~
 
-Now you store the input value to your internal component state every time the value in the input field changes.
+This stores the input value to your internal components state every time the value in the input field changes.
 
-A brief note about updating the local state in a React component. It would be fair to assume that when updating the `searchTerm` with `this.setState()` the list needs to be passed as well to preserve it. But that isn't the case. React's `this.setState()` is a shallow merge. It preserves the sibling properties in the state object when updating one sole property in it. Thus the list state, even though you have already dismissed an item from it, would stay the same when updating the `searchTerm` property.
+A brief note on updating the local state in a React component. It would be fair to assume that updating the `searchTerm` with `this.setState()` that the list needs to be passed as well to preserve it. But this isn't the case. React's `this.setState()` is a shallow merge. It preserves the sibling properties in the state object when updating one sole property in it. Thus the list state, even though you have already dismissed an item from it, stays the same when updating the `searchTerm` property.
 
-Let's get back to your application. The list isn't filtered yet based on the input field value that is stored in the local state. Basically you have to filter the list temporarily based on the `searchTerm`. You have everything you need to filter it. So how to filter it temporarily now? In your `render()` method, before you map over the list, you can apply a filter on it. The filter would only evaluate if the `searchTerm` matches the title property of the item. You have already used the built-in JavaScript filter functionality, so let's do it again. You can sneak in the filter function before the map function, because the filter function returns a new array and thus the map function can be used on it in such a convenient way.
+Let's get back to your application. The list isn't filtered yet based on the input field value that is stored in the local state. You have to filter the list temporarily based on the `searchTerm`. You have everything you need to filter it. To filter it temporarily, apply a filter in your `render()` method before you map over the list. The filter only evaluates if the `searchTerm` matches the title property of the item. You have already used the built-in JavaScript filter functionality, so let's do it again. You can sneak in the filter function before the map function, because the filter function returns a new array and thus the map function can be conveniently used on it.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -914,11 +914,11 @@ class App extends Component {
 }
 ~~~~~~~~
 
-Let's approach the filter function in a different way this time. We want to define the filter argument, the function that is passed to the filter function, outside of the ES6 class component. There we don't have access to the state of the component and thus we have no access to the `searchTerm` property to evaluate the filter condition. We have to pass the `searchTerm` to the filter function and have to return a new function to evaluate the condition. That's called a higher-order function.
+Let's approach the filter function in a different way this time. We want to define the filter argument, the function that is passed to the filter function, outside of the ES6 class component. We don't have access to the state of the component and thus we have no access to the `searchTerm` property to evaluate the filter condition. We have to pass the `searchTerm` to the filter function and return a new function to evaluate the condition. That's called a higher-order function.
 
-Normally I wouldn't mention higher-order functions, but in a React book it makes total sense. It makes sense to know about higher-order functions, because React deals with a concept called higher-order components. You will get to know the concept later in the book. Now again, let's focus on the filter functionality.
+Normally I wouldn't mention higher-order functions, but in a React book it makes total sense, because React deals with a concept called higher-order components. You will get to know this concept later in the book. Let's focus back on the filter functionality.
 
-First, you have to define the higher-order function outside of your App component.
+First, you must define the higher-order function outside of your App component.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -937,7 +937,7 @@ class App extends Component {
 }
 ~~~~~~~~
 
-The function takes the `searchTerm` and returns another function, because after all the filter function takes a function as its input. The returned function has access to the item object because it is the function that is passed to the filter function. In addition, the returned function will be used to filter the list based on the condition defined in the function. Let's define the condition.
+This function takes the `searchTerm` and returns another function, because the filter function must take a function as its input. The returned function has access to the item object because it is passed into the filter function. In addition, the returned function will be used to filter the list based on the condition defined in the function. Let's define that condition.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
@@ -956,9 +956,9 @@ class App extends Component {
 }
 ~~~~~~~~
 
-The condition says that you match the incoming `searchTerm` pattern with the title property of the item from your list. You can do that with the built-in `includes` JavaScript functionality. Only when the pattern matches, you return true and the item stays in the list. When the pattern doesn't match the item is removed from the list. But be careful with pattern matching: You shouldn't forget to lower case both strings. Otherwise there will be mismatches between a search term 'redux' and an item title 'Redux'. Since we are working on a immutable list and return a new list by using the filter function, the original list in the local state isn't modified at all.
+The condition matches the incoming `searchTerm` pattern with the title property of the item from your list. You can do that with the built-in `includes` JavaScript functionality. Only when the pattern matches, does the condition return true and the item stays in the list. When the pattern doesn't match, the condition returns false and the item is removed from the list. But be careful with pattern matching: You shouldn't forget to lower case both strings. Otherwise, there will be mismatches between a search term 'redux' and an item title 'Redux'. Since we are working on an immutable list and returning a new list by using the filter function, the original list in the local state isn't modified at all.
 
-One thing is left to mention: We cheated a bit by using the built-in includes JavaScript functionality. It is already an ES6 feature. How would that look like in JavaScript ES5? You would use the `indexOf()` function to get the index of the item in the list. When the item is in the list, `indexOf()` will return its index in the array.
+One more thing: We cheated a bit by using the built-in `includes` JavaScript functionality, which is an ES6 feature. How would that look like in JavaScript ES5? You would use the `indexOf()` function to get the index of the item in the list. When the item is in the list, `indexOf()` returns its index in the array.
 
 {title="Code Playground",lang="javascript"}
 ~~~~~~~~
@@ -969,7 +969,7 @@ string.indexOf(pattern) !== -1
 string.includes(pattern)
 ~~~~~~~~
 
-Another neat refactoring can be done with an ES6 arrow function again. It makes the function more concise:
+Another neat refactoring can be done with an ES6 arrow function again to make the function more precise:
 
 {title="Code Playground",lang="javascript"}
 ~~~~~~~~
@@ -985,9 +985,9 @@ const isSearched = searchTerm => item =>
   item.title.toLowerCase().includes(searchTerm.toLowerCase());
 ~~~~~~~~
 
-One could argue which function is more readable. Personally I prefer the second one. The React ecosystem uses a lot of functional programming concepts. It happens often that you will use a function which returns a function (higher-order functions). In JavaScript ES6, you can express these more concisely with arrow functions.
+One could argue the first function is more readable. Personally I prefer the second one. The React ecosystem uses a lot of functional programming concepts, such as using a function which returns a function (higher-order functions). In JavaScript ES6, you can express these more concisely with arrow functions.
 
-Last but not least, you have to use the defined `isSearched()` function to filter your list. You pass it the `searchTerm` property from your local state, it returns the filter input function, and filters your list based on the filter condition. Afterward it maps over the filtered list to display an element for each list item.
+Last but not least, you have to use the defined `isSearched()` function to filter your list. You pass it the `searchTerm` property from your local state, which returns the filter input function and filters your list based on the filter condition. Afterward, it maps over the filtered list to display an element for each list item.
 
 {title="src/App.js",lang=javascript}
 ~~~~~~~~
